@@ -37,7 +37,7 @@ Antes de começar, certifique-se de ter as seguintes ferramentas instaladas:
 ## 📦 Como Executar o Projeto
 
 1. Clone o repositório:
-git clone https://github.com/seu-usuario/taskapp.git
+git clone [git@github.com:sinngjpeg/todo-sample.git](https://github.com/sinngjpeg/todo-sample)
 
 2. Abra o projeto no Android Studio.
 3. Sincronize as dependências do Gradle.
