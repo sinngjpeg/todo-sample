@@ -15,7 +15,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import br.com.jpegsinng.todolistsamplearticle.domain.model.Task
@@ -24,18 +23,18 @@ import br.com.jpegsinng.todolistsamplearticle.domain.model.Task
 fun TaskItem(
     task: Task,
     onComplete: () -> Unit,
-    onDelete: () -> Unit = {},
-    onAdd: () -> Unit = {}
+    onDelete: () -> Unit
 ) {
-    val backgroundColor = if (task.isCompleted) Color.LightGray else Color.White
+    val backgroundColor =
+        if (task.isCompleted) MaterialTheme.colorScheme.surfaceVariant else MaterialTheme.colorScheme.surface
 
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .background(backgroundColor)
-            .border(1.dp, Color.Gray, shape = RoundedCornerShape(8.dp))
-            .padding(8.dp),
+            .background(backgroundColor, shape = RoundedCornerShape(12.dp))
+            .border(1.dp, MaterialTheme.colorScheme.outline, shape = RoundedCornerShape(12.dp))
+            .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
@@ -44,8 +43,8 @@ fun TaskItem(
         ) {
             Text(
                 text = task.title,
-                style = MaterialTheme.typography.bodyMedium,
-                color = if (task.isCompleted) Color.Gray else Color.Black,
+                style = MaterialTheme.typography.bodyLarge,
+                color = if (task.isCompleted) MaterialTheme.colorScheme.onSurfaceVariant else MaterialTheme.colorScheme.onSurface,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
@@ -53,25 +52,25 @@ fun TaskItem(
                 Text(
                     text = "Concluída",
                     style = MaterialTheme.typography.labelSmall,
-                    color = Color.Green
+                    color = MaterialTheme.colorScheme.primary
                 )
             }
         }
 
-        Row {
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             if (!task.isCompleted) {
                 Button(
                     onClick = onComplete,
-                    colors = ButtonDefaults.buttonColors(containerColor = Color.Green)
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
                 ) {
-                    Text("Concluir", color = Color.White)
+                    Text("Concluir", color = MaterialTheme.colorScheme.onPrimary)
                 }
             } else {
                 Button(
                     onClick = onDelete,
-                    colors = ButtonDefaults.buttonColors(containerColor = Color.Red)
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
                 ) {
-                    Text("Excluir", color = Color.White)
+                    Text("Excluir", color = MaterialTheme.colorScheme.onError)
                 }
             }
         }

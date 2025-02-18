@@ -1,5 +1,6 @@
 package br.com.jpegsinng.todolistsamplearticle.presentation.ui
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
@@ -10,6 +11,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.ui.unit.dp
 
 
 @Composable
@@ -21,14 +24,15 @@ fun AddTaskDialog(
 
     AlertDialog(
         onDismissRequest = { onDismiss() },
-        title = { Text(text = "Adicionar Nova Tarefa") },
+        title = { Text(text = "Adicionar Nova Tarefa", style = MaterialTheme.typography.titleMedium) },
         text = {
-            Column {
-                Text("Digite o título da tarefa:")
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                Text("Digite o título da tarefa:", style = MaterialTheme.typography.bodyMedium)
                 TextField(
                     value = taskTitle,
                     onValueChange = { taskTitle = it },
-                    placeholder = { Text("Título da tarefa") }
+                    placeholder = { Text("Título da tarefa") },
+                    singleLine = true
                 )
             }
         },
@@ -37,8 +41,10 @@ fun AddTaskDialog(
                 onClick = {
                     if (taskTitle.isNotBlank()) {
                         onAddTask(taskTitle)
+                        taskTitle = ""
                     }
-                }
+                },
+                enabled = taskTitle.isNotBlank()
             ) {
                 Text("Adicionar")
             }
